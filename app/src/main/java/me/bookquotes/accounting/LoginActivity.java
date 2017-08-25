@@ -1,5 +1,6 @@
-package me.bookquotes.expenses;
+package me.bookquotes.accounting;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * https://stackoverflow.com/q/45190997/2228912
  */
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private EditText inputUsername;
     private EditText inputPassword;
     private Button btnLogin;
@@ -30,17 +31,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // check if had already authenticated (saved token)
+        // check if already authenticated (saved token)
         mPrefs = getSharedPreferences("prefs", 0);
         String t = mPrefs.getString("token", null);
         if (t != null) {
-            // Move to another activity
-            Toast.makeText(this, "Token exists", Toast.LENGTH_LONG).show();
+            // go directly to next activity
+            Intent intent = new Intent(this, AccountingActivity.class);
+            intent.putExtra("token", t);
+            startActivity(intent);
         }
 
         // set layout
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login_activity);
 
         // button click listener
         inputUsername = (EditText) findViewById(R.id.username);
@@ -79,16 +82,19 @@ public class MainActivity extends AppCompatActivity {
                             editor.putString("token", t);
                             editor.commit();
 
-                            Toast.makeText(MainActivity.this, "Token=" + t, Toast.LENGTH_LONG).show();
+                            // go to next activity
+                            Intent intent = new Intent(LoginActivity.this, AccountingActivity.class);
+                            intent.putExtra("token", t);
+                            startActivity(intent);
                         } else {
-                            Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Token> call, Throwable t) {
                         String message = t.getMessage();
-                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
                     }
                 });
             }

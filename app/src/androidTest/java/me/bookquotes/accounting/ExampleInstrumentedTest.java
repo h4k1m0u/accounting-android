@@ -1,4 +1,4 @@
-package me.bookquotes.expenses;
+package me.bookquotes.accounting;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
