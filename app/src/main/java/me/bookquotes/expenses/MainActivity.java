@@ -3,11 +3,12 @@ package me.bookquotes.expenses;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
-import java.util.List;
-
-import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,6 +22,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class MainActivity extends AppCompatActivity {
+    private EditText inputUsername;
+    private EditText inputPassword;
+    private Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,33 +32,50 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // initialize http client with token
-        String token = Credentials.basic("hakim", "L57f841C");
-        AuthenticationInterceptor interceptor = new AuthenticationInterceptor(token);
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(interceptor);
+        // button click listener
+        inputUsername = (EditText) findViewById(R.id.username);
+        inputPassword = (EditText) findViewById(R.id.password);
+        btnLogin = (Button) findViewById(R.id.login);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // get username and password
+                String username = inputUsername.getText().toString().trim();
+                String password = inputPassword.getText().toString().trim();
 
-        // initialize the json parser with retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://accounting.bookquotes.me")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-        ExpensesAPI api = retrofit.create(ExpensesAPI.class);
+                // logging interceptor to print requests (change to BODY for more detail)
+                HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+                logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+                OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+                httpClient.addInterceptor(logging);
 
-        // basic authentication
-        Call<List<Expense>> call = api.getExpenses();
-        call.enqueue(new Callback<List<Expense>>() {
-            @Override
-            public void onResponse(Call<List<Expense>> call, Response<List<Expense>> response) {
-                // TODO: show a toast for unauthorized (change token to test)
-                Log.d("ExpensesResponse", response.message());
-            }
+                // initialize the json parser with retrofit
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://accounting.bookquotes.me/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .client(httpClient.build())
+                        .build();
+                TokenAPI api = retrofit.create(TokenAPI.class);
 
-            @Override
-            public void onFailure(Call<List<Expense>> call, Throwable t) {
-                String message = t.getMessage();
-                Log.d("ExpensesError", message);
+                // token authentication
+                Call<Token> call = api.getToken(username, password);
+                call.enqueue(new Callback<Token>() {
+                    @Override
+                    public void onResponse(Call<Token> call, Response<Token> response) {
+                        if (response.code() == 200) {
+                            // get token
+                            Token token = response.body();
+                            Log.d("Success", token.getToken());
+                        } else {
+                            Log.d("Error", response.message());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Token> call, Throwable t) {
+                        String message = t.getMessage();
+                        Log.d("Error", message);
+                    }
+                });
             }
         });
     }

@@ -3,7 +3,7 @@ package me.bookquotes.expenses;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * User model class.
+ * Expense model class.
  */
 
 public class Expense {
