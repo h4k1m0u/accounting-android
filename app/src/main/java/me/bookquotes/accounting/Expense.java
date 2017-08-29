@@ -14,7 +14,7 @@ public class Expense {
     private String description;
 
     @SerializedName("amount")
-    private String amount;
+    private float amount;
 
     public String getDate() {
         return date;
@@ -24,7 +24,7 @@ public class Expense {
         return description;
     }
 
-    public String getAmount() {
+    public float getAmount() {
         return amount;
     }
 }

@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // initialize the json parser with retrofit
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://accounting.bookquotes.me/")
+                        .baseUrl("http://accounting.bookquotes.me/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .client(httpClient.build())
                         .build();
