@@ -13,6 +13,9 @@ public class Expense {
     @SerializedName("description")
     private String description;
 
+    @SerializedName("user")
+    private String user;
+
     @SerializedName("amount")
     private float amount;
 
@@ -22,6 +25,10 @@ public class Expense {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getUser() {
+        return user;
     }
 
     public float getAmount() {
