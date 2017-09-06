@@ -13,13 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Basic authentication with retrofit:
@@ -47,7 +44,7 @@ public class AccountingActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // inflate menu
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.accounting_menu, menu);
 
         return true;
     }
@@ -72,26 +69,14 @@ public class AccountingActivity extends AppCompatActivity {
                         final String description = descriptionEditText.getText().toString();
                         final Float amount = Float.valueOf(amountEditText.getText().toString());
 
-                        // logging interceptor to print requests (change to BODY for more detail)
-                        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-                        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
-                        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-                        httpClient.addInterceptor(logging);
-
-                        // initialize the json parser with retrofit
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl("http://accounting.bookquotes.me/api/")
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .client(httpClient.build())
-                                .build();
-                        AddExpenseAPI api = retrofit.create(AddExpenseAPI.class);
-
                         // get token from extras
                         Intent intent = getIntent();
                         String t = intent.getExtras().getString("token");
                         String header = "Token " + t;
 
                         // get expenses
+                        Retrofit retrofit = Util.getBuilder();
+                        AddExpenseAPI api = retrofit.create(AddExpenseAPI.class);
                         Call<Expense> call = api.addExpense(header, description, amount);
                         call.enqueue(new Callback<Expense>() {
                             @Override

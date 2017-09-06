@@ -6,7 +6,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 /**
- * Retrofit API interface (to get total of expenses only by authenticated users).
+ * Retrofit API interface to get total of expenses of the connected users.
  */
 
 public interface TotalAPI {

@@ -22,6 +22,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <fragment
+            android:id="@+id/user_fragment"
+            android:name="me.bookquotes.accounting.UserFragment"
+            tools:layout="@layout/user_fragment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:tag="user"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <fragment
             android:id="@+id/expenses_fragment"
             android:name="me.bookquotes.accounting.ExpensesFragment"
             tools:layout="@layout/expenses_fragment"
@@ -34,7 +49,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/user_fragment" />
 
         <fragment
             android:id="@+id/total_fragment"
