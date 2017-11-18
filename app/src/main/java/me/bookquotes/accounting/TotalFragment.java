@@ -34,7 +34,7 @@ public class TotalFragment extends Fragment {
         String t = intent.getExtras().getString("token");
         String header = "Token " + t;
 
-        // get expenses
+        // get total
         Retrofit retrofit = Util.getBuilder();
         TotalAPI api = retrofit.create(TotalAPI.class);
         Call<Float> call = api.getTotal(header, Util.getCurrentMonth());

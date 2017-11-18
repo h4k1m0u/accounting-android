@@ -21,7 +21,7 @@ public class Util {
 
         // initialize the json parser with retrofit
         Retrofit builder = new Retrofit.Builder()
-                .baseUrl("http://accounting.bookquotes.me/api/")
+                .baseUrl("http://bookquotes.me/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();

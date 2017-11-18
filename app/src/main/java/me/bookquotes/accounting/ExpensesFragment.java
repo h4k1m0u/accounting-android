@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,15 +37,15 @@ public class ExpensesFragment extends Fragment {
 
         // get expenses
         Retrofit retrofit = Util.getBuilder();
-        ExpensesAPI api = retrofit.create(ExpensesAPI.class);
-        Call<List<Expense>> call = api.getExpenses(header, Util.getCurrentMonth());
-        call.enqueue(new Callback<List<Expense>>() {
+        FeedAPI api = retrofit.create(FeedAPI.class);
+        Call<Feed> call = api.getFeed(header, Util.getCurrentMonth());
+        call.enqueue(new Callback<Feed>() {
             @Override
-            public void onResponse(Call<List<Expense>> call, Response<List<Expense>> response) {
+            public void onResponse(Call<Feed> call, Response<Feed> response) {
                 if (response.code() == 200) {
                     // fill recyclerview from feed
-                    List<Expense> expenses = response.body();
-                    ExpenseAdapter adapter = new ExpenseAdapter(expenses);
+                    Feed feed = response.body();
+                    ExpenseAdapter adapter = new ExpenseAdapter(feed.getResults());
                     mRecyclerView.setAdapter(adapter);
                 } else {
                     Toast.makeText(getContext(), response.message(), Toast.LENGTH_LONG).show();
@@ -55,7 +53,7 @@ public class ExpensesFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Expense>> call, Throwable t) {
+            public void onFailure(Call<Feed> call, Throwable t) {
                 String message = t.getMessage();
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }

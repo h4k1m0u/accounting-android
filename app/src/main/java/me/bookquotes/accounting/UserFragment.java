@@ -9,13 +9,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by h4k1m on 28/08/2017.
@@ -29,26 +26,14 @@ public class UserFragment extends Fragment {
         View view = inflater.inflate(R.layout.user_fragment, container, false);
         mUserTextView = (TextView) view.findViewById(R.id.user);
 
-        // logging interceptor to print requests (change to BODY for more detail)
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.NONE);
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(logging);
-
-        // initialize the json parser with retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://accounting.bookquotes.me/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-        UserAPI api = retrofit.create(UserAPI.class);
-
         // get token from extras
         Intent intent = getActivity().getIntent();
         String t = intent.getExtras().getString("token");
         String header = "Token " + t;
 
-        // get expenses
+        // get user
+        Retrofit retrofit = Util.getBuilder();
+        UserAPI api = retrofit.create(UserAPI.class);
         Call<User> call = api.getUser(header);
         call.enqueue(new Callback<User>() {
             @Override
