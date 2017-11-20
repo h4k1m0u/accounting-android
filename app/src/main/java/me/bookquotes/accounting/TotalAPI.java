@@ -10,6 +10,6 @@ import retrofit2.http.Query;
  */
 
 public interface TotalAPI {
-    @GET("total/")
+    @GET("expenses/total/")
     Call<Float> getTotal(@Header("Authorization") String token, @Query("month") int month);
 }
