@@ -4,11 +4,11 @@ android {
     compileSdkVersion 25
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "me.bookquotes.accounting"
+        applicationId "com.gistutorials.accounting"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 5
-        versionName "0.3.1"
+        versionCode 6
+        versionName "0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

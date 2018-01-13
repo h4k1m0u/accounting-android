@@ -1,4 +1,4 @@
-package me.bookquotes.accounting;
+package com.gistutorials.accounting;
 
 import android.app.Dialog;
 import android.content.Intent;

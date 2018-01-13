@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="me.bookquotes.accounting.AccountingActivity">
+    tools:context="com.gistutorials.accounting.AccountingActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
 
         <fragment
             android:id="@+id/user_fragment"
-            android:name="me.bookquotes.accounting.UserFragment"
+            android:name="com.gistutorials.accounting.UserFragment"
             tools:layout="@layout/user_fragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
 
         <fragment
             android:id="@+id/expenses_fragment"
-            android:name="me.bookquotes.accounting.ExpensesFragment"
+            android:name="com.gistutorials.accounting.ExpensesFragment"
             tools:layout="@layout/expenses_fragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
 
         <fragment
             android:id="@+id/total_fragment"
-            android:name="me.bookquotes.accounting.TotalFragment"
+            android:name="com.gistutorials.accounting.TotalFragment"
             tools:layout="@layout/total_fragment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

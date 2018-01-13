@@ -1,4 +1,4 @@
-package me.bookquotes.accounting;
+package com.gistutorials.accounting;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package me.bookquotes.accounting;
+package com.gistutorials.accounting;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static me.bookquotes.accounting.R.id.login;
+import static com.gistutorials.accounting.R.id.login;
 
 /**
  * Basic authentication with retrofit:

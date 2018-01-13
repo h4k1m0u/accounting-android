@@ -1,4 +1,4 @@
-package me.bookquotes.accounting;
+package com.gistutorials.accounting;
 
 import com.google.gson.annotations.SerializedName;
 

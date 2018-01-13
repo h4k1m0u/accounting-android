@@ -1,4 +1,4 @@
-package me.bookquotes.accounting;
+package com.gistutorials.accounting;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

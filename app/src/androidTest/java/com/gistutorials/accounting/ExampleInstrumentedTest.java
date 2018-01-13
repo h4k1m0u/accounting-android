@@ -1,4 +1,4 @@
-package me.bookquotes.accounting;
+package com.gistutorials.accounting;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

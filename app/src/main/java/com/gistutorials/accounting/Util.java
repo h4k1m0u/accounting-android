@@ -1,4 +1,4 @@
-package me.bookquotes.accounting;
+package com.gistutorials.accounting;
 
 import java.util.Calendar;
 
@@ -21,7 +21,7 @@ public class Util {
 
         // initialize the json parser with retrofit
         Retrofit builder = new Retrofit.Builder()
-                .baseUrl("http://bookquotes.me/api/")
+                .baseUrl("http://gistutorials.com/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
